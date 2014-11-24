@@ -1,0 +1,27 @@
+{
+  "name": "blocklistwatcher",
+  "description": "blocklist watching twitter service",
+  "version": "1.0.0",
+  "author": {
+    "name": "A Concerned Citizen",
+    "email": "",
+    "url": "https://github.com/aconcernedcitizen/blocklistwatcher"
+  },
+  "contributors": [
+  ],
+  "homepage": "https://github.com/aconcernedcitizen/blocklistwatcher",
+  "devDependencies": {
+    "parse5": "1.2.0",
+    "twit": "1.1.18",
+    "xmldom": "0.1.19",
+    "xmlserializer": "0.3.3",
+    "xpath": "0.0.7",
+    "sqlite3": "3.0.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aconcernedcitizen/blocklistwatcher.git"
+  },
+  "main": "./app.js"
+}
+
