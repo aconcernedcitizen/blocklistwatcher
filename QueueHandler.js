@@ -44,7 +44,7 @@ function ProcessUser(row){
 	twitter.Tweet(message, function(success){
 		//If we succeeded mark them alerted
 		if(success){
-			userhandler.MarkAlerted(row.Handle, row.Monitoring == 1 ? 0 : 2);
+			userhandler.MarkAlerted(row.Handle, row.Monitoring == 1 ? 0 : row.Monitoring);
 		}
 	});
 }
