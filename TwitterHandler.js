@@ -9,8 +9,6 @@ var cfg;
 function Tweet(message, callback){
 	console.log("Tweeting '" + message + "'");
 
-	return;
-
 	twitter.post("statuses/update", { status: message }, function(err, data, res) {
 		if(err != null){
 			console.log("Error tweeting message: " + err);
