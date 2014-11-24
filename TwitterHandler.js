@@ -10,7 +10,7 @@ function Tweet(message, callback){
 	console.log("Tweeting '" + message + "'");
 
 	twitter.post("statuses/update", { status: message }, function(err, data, res) {
-		if(err != null){
+		if(err != null || res.statusCode > 300 ){
 			console.log("Error tweeting message: " + err);
 			logger.error("Error tweeting message: " + err);
 			callback(false);
