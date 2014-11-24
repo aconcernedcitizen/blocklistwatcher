@@ -28,12 +28,15 @@ function ProcessUser(row){
 	console.log("%j", row);
 
 	var message;
+	var alertType = 1;
 
 	//Must be on list (last seen within 48 hours)
 	if(row.DateLastSeen >= new Date().getTime() - 2 * 24 * 60 * 60 * 1000){
 		message = cfg.MessageTemplateOnList;
+		alertType = 1;
 	} else { //Must be off list
 		message = cfg.MessageTemplateOffList;
+		alertType = 2;
 		
 	}
 	message = message.replace("{$username}", row.Handle);
@@ -44,7 +47,7 @@ function ProcessUser(row){
 	twitter.Tweet(message, function(success){
 		//If we succeeded mark them alerted
 		if(success){
-			userhandler.MarkAlerted(row.Handle, row.Monitoring == 1 ? 0 : row.Monitoring);
+			userhandler.MarkAlerted(row.Handle, alertType, row.Monitoring == 1 ? 0 : row.Monitoring);
 		}
 	});
 }

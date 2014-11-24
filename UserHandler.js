@@ -86,12 +86,14 @@ function GetNextUserNotNotified(callback){
         });
 }
 
-//Resets everyone who hasn't been seen on the list for more than 48 hours to not alerted (so we can notify them of removal)
+//Finds users who have have been alerted to being on the list (Alerted = 1) and are now off the list (DateLastSeen > 48 hours) and are monitored (Monitored = 2)
+//or users who have been alerted to being off the list (Alerted = 2) and are now on the list again (DateLastSeen < 48 hours) and are monitored (Monitored != 0)
+//In both cases clear the alert status so they can be notified of the update
 function UpdateUsersVisibility(){
 	console.log("Updatig users visibility, anyone last seen more than 48 hours ago is being marked as not alerted now.");
 
 	SanityCheck();
-	db.run("update users set Alerted = 0 where Monitoring > 0 and DateLastSeen < $lastseen", { $lastseen: new Date().getTime() - 2 * 24 * 60 * 60 * 1000 }, function(err){
+	db.run("update users set Alerted = 0 where (Monitoring = 2 and Alerted = 1 and DateLastSeen < $lastseen) or (Monitoring > 0 and Alerted = 2 and DateLastSeen > $lastseen)", { $lastseen: new Date().getTime() - 2 * 24 * 60 * 60 * 1000 }, function(err){
                 if(err != null){
                         logger.error("Error updating users visibility in database: " + err);
                 }
@@ -99,11 +101,11 @@ function UpdateUsersVisibility(){
 }
 
 //Marks a user as alerted, and adjusts monitoring state as needed
-function MarkAlerted(user, monitoring){
+function MarkAlerted(user, alertType, monitoring){
 	console.log("Marking user " + user + " as alerted.");
 
 	SanityCheck();
-        db.run("update users set Alerted = 1, Monitoring = $monitoring where Handle = $name", { $name: user, $monitoring: monitoring }, function(err){
+        db.run("update users set Alerted = $alertType, Monitoring = $monitoring where Handle = $name", { $name: user, $alertType: alertType, $monitoring: monitoring }, function(err){
                 if(err != null){
                         logger.error("Error marking user as alerted in database: " + err);
                 }
