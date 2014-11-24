@@ -44,3 +44,9 @@ NodeJS Module Dependencies:
 - twit (twitter api)
 - xpath (for doing the block list retrieval and page navigation, very lazy approach)
 - winston (for logging to files)
+
+Installation:
+- npm install sqlite3 xmldom xmlserializer parse5 twit xpath winston
+- put this project in node_modules/blocklistwatcher
+- make app.js, include example code above, adjust as needed
+- nodejs app.js to run it
