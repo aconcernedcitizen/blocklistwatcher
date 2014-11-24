@@ -16,7 +16,8 @@
     "xmldom": "0.1.19",
     "xmlserializer": "0.3.3",
     "xpath": "0.0.7",
-    "sqlite3": "3.0.4"
+    "sqlite3": "3.0.4",
+    "winston": "0.8.3"
   },
   "repository": {
     "type": "git",
