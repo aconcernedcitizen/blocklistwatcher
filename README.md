@@ -5,7 +5,8 @@ An experiment to toy with learning node.js. Designed to monitor a twitter blockl
 Can optionally monitor to alert them to being removed from the list as well.
 
 This is a node.js module, and is generally used via calling Main and passing in a configuration object.
-Example:
+
+Example:<pre>
 var app = require("blocklistwatcher");
 
 app.Main({
@@ -26,6 +27,7 @@ app.Main({
         LogFile: "error.log", //File to log general errors too
         ExceptionLog: "exception.log" //If an exception occurs it will be stored here
 });
+</pre>
 
 Control:
 - mentioning the bot and using the string "ignore" anywhere in the message will cause the bot to no longer send messages to the user sending the mention
